@@ -1,0 +1,9 @@
+# Dependencies the Python Workers runtime installs for this Worker (pywrangler).
+[project]
+name = "cookiemonsters-worker"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = ["fastapi", "pydantic"]
+
+[dependency-groups]
+dev = ["workers-py"]

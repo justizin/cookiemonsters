@@ -1,0 +1,21 @@
+{
+  "comment": "Hostname -> registrable domain. Checked by api/tests/test_domains.py and extension/tests/scoring_parity.mjs so client and server agree. null means 'not a public site'.",
+  "cases": [
+    ["example.com", "example.com"],
+    ["www.example.com", "example.com"],
+    ["shop.example.co.uk", "example.co.uk"],
+    ["news.bbc.co.uk", "bbc.co.uk"],
+    ["a.b.github.io", "b.github.io"],
+    ["www.city.kawasaki.jp", "city.kawasaki.jp"],
+    ["x.y.foo.kawasaki.jp", "y.foo.kawasaki.jp"],
+    ["foo.kawasaki.jp", null],
+    ["bücher.de", "xn--bcher-kva.de"],
+    ["deep.sub.domain.example.com.au", "example.com.au"],
+    ["localhost", null],
+    ["127.0.0.1", null],
+    ["co.uk", null],
+    ["github.io", null],
+    ["foo.notatld", null],
+    ["shop.fixture.test", null]
+  ]
+}

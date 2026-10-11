@@ -1,0 +1,7 @@
+<!doctype html><meta charset=utf-8><title>Reappearing banner</title><script src="_common.js"></script>
+<body><h1>Nag</h1>
+<div id="hs-eu-cookie-confirmation" style="position:fixed;bottom:0;left:0;right:0;background:#fff;padding:12px">
+  <p>We use cookies.</p>
+  <button id="hs-eu-decline-button" onclick="record('reject');const b=this.parentNode;b.style.display='none';setTimeout(()=>b.style.display='block',800)">Decline</button>
+  <button id="hs-eu-confirmation-button" onclick="record('accept');this.parentNode.remove()">Accept</button>
+</div></body>

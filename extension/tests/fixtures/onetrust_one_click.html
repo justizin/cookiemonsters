@@ -1,0 +1,10 @@
+<!doctype html><meta charset=utf-8><title>OneTrust one-click</title><script src="_common.js"></script>
+<body><h1>News</h1><p>Article text.</p>
+<div id="onetrust-consent-sdk">
+  <div id="onetrust-banner-sdk" style="position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #000;padding:16px">
+    <p>We use cookies to personalise content and ads. By clicking "Accept All Cookies" you agree.</p>
+    <button id="onetrust-pc-btn-handler" onclick="record('settings')">Cookie Settings</button>
+    <button id="onetrust-reject-all-handler" onclick="record('reject');hide('#onetrust-consent-sdk')" style="padding:10px;width:180px">Reject All</button>
+    <button id="onetrust-accept-btn-handler" onclick="record('accept');hide('#onetrust-consent-sdk')" style="padding:10px;width:180px">Accept All Cookies</button>
+  </div>
+</div></body>

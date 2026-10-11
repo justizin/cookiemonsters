@@ -1,0 +1,6 @@
+body { width: 330px; padding: 12px 14px; }
+header { justify-content: space-between; margin-bottom: 10px; }
+#site { font-size: 12px; max-width: 190px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+footer { justify-content: space-between; margin-top: 12px; font-size: 12px; }
+.headline { font-weight: 600; }
+.small { font-size: 12px; }

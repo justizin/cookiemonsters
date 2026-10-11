@@ -1,0 +1,29 @@
+{
+  "comment": "Hand-computed expected results. Both the Python scorer (api/tests/test_scoring.py) and the JavaScript scorer (extension/tests/scoring_parity.mjs) must reproduce these exactly.",
+  "reports": [
+    {"name": "no banner", "report": {"outcome": "no_banner", "clicks": 0, "toggles_unticked": 0, "flags": []}, "friction": 0, "grade": "A"},
+    {"name": "one-click reject", "report": {"outcome": "rejected_first_layer", "clicks": 1, "toggles_unticked": 0, "flags": []}, "friction": 5, "grade": "A"},
+    {"name": "settings reject-all, pre-ticked", "report": {"outcome": "rejected_in_settings", "clicks": 3, "toggles_unticked": 0, "flags": ["pre_ticked"]}, "friction": 37, "grade": "C"},
+    {"name": "toggle marathon", "report": {"outcome": "rejected_by_toggles", "clicks": 12, "toggles_unticked": 10, "flags": ["legitimate_interest", "banner_reappeared"]}, "friction": 87, "grade": "F"},
+    {"name": "accept only", "report": {"outcome": "accept_only", "clicks": 0, "toggles_unticked": 0, "flags": []}, "friction": 75, "grade": "F"},
+    {"name": "consent or pay, tracking first", "report": {"outcome": "consent_or_pay", "clicks": 0, "toggles_unticked": 0, "flags": ["tracking_before_choice"]}, "friction": 90, "grade": "F"},
+    {"name": "failed after clicking", "report": {"outcome": "reject_failed", "clicks": 5, "toggles_unticked": 0, "flags": []}, "friction": 80, "grade": "F"},
+    {"name": "capped at 100", "report": {"outcome": "consent_or_pay", "clicks": 10, "toggles_unticked": 20, "flags": ["pre_ticked", "legitimate_interest", "reject_less_prominent", "banner_reappeared", "tracking_before_choice", "reject_needs_scroll"]}, "friction": 100, "grade": "F"},
+    {"name": "one-click but tracking first and small button", "report": {"outcome": "rejected_first_layer", "clicks": 1, "toggles_unticked": 0, "flags": ["tracking_before_choice", "reject_less_prominent"]}, "friction": 21, "grade": "B"}
+  ],
+  "sites": [
+    {
+      "name": "median of mixed visits",
+      "frictions": [5, 5, 37, 87],
+      "comment": "lower median of sorted [5,5,37,87] is 5, upper is 37; we use the mean of the two middle values rounded half up: 21",
+      "friction": 21,
+      "grade": "B"
+    },
+    {
+      "name": "odd count",
+      "frictions": [0, 75, 75],
+      "friction": 75,
+      "grade": "F"
+    }
+  ]
+}

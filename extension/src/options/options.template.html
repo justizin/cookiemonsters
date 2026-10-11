@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cookiemonsters settings</title>
+<link rel="stylesheet" href="../common/ui.css">
+<link rel="stylesheet" href="options.css">
+</head>
+<body>
+<!-- GENERATED from options.template.html + shared/privacy.md by tools/sync_generated.py. Do not edit. -->
+<main>
+<h1>cookiemonsters</h1>
+<p class="muted">Refuses non-essential cookies for you and measures how hard each site made that.</p>
+
+<section class="card">
+  <h2>Grading server</h2>
+  <p class="small">Leave this empty and nothing ever leaves your browser. For the most privacy, run the server on your own computer and use <code>http://127.0.0.1:8787</code>.</p>
+  <label for="serverUrl">Server address</label>
+  <input id="serverUrl" type="url" placeholder="http://127.0.0.1:8787" autocomplete="off" spellcheck="false">
+  <label for="token">Report token <span class="muted">(only if your server requires one)</span></label>
+  <input id="token" type="password" autocomplete="off">
+  <label class="check"><input id="reporting" type="checkbox"> <span>Send anonymous reports about cookie banners (batched, sent later, at most one per site per day)</span></label>
+  <label class="check"><input id="lookups" type="checkbox"> <span>Show site grades from the server (asked for by a shared code, not by site name)</span></label>
+  <div class="row actions">
+    <button id="save">Save</button>
+    <button id="grant" hidden>Allow access to this server</button>
+    <button id="flush">Send queued reports now</button>
+    <span id="status" class="muted small" role="status"></span>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Behaviour</h2>
+  <label class="check"><input id="paused" type="checkbox"> <span>Pause cookiemonsters everywhere</span></label>
+  <label class="check"><input id="allowReserved" type="checkbox"> <span>Developer: also run on <code>.test</code> and other reserved names</span></label>
+  <p class="small muted" id="disabledSites"></p>
+</section>
+
+<section class="privacy">
+{{PRIVACY}}
+</section>
+</main>
+<script src="options.js"></script>
+</body>
+</html>

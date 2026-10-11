@@ -1,0 +1,4 @@
+{
+  "background": {"scripts": ["common/generated_core.js", "common/site.js", "common/score.js", "background/bg.js"]},
+  "browser_specific_settings": {"gecko": {"id": "cookiemonsters@cookiemonsters.local", "strict_min_version": "115.0"}}
+}

@@ -1,0 +1,27 @@
+# Cloudflare Worker (Python) + D1. See docs/DEPLOY.md.
+name = "cookiemonsters"
+main = "src/entry.py"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["python_workers"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "cookiemonsters"
+database_id = "REPLACE_WITH_OUTPUT_OF_wrangler_d1_create"
+migrations_dir = "migrations"
+
+[vars]
+# The Worker sits behind Cloudflare, so the client address comes from CF-Connecting-IP.
+CM_TRUST_CF_HEADERS = "1"
+# Raise this before sharing the server with other people (k-anonymity for published grades).
+CM_PUBLISH_MIN_REPORTS = "1"
+CM_RATE_PER_DAY = "1000"
+CM_RATE_PER_SITE_DAY = "5"
+# CM_REPORT_TOKEN is a secret: npx wrangler secret put CM_REPORT_TOKEN
+
+[triggers]
+crons = ["17 3 * * *"]
+
+# No request logs: the application never logs, and Workers Logs stay off.
+[observability]
+enabled = false

@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cookiemonsters"
+version = "0.1.0"
+description = "Grade websites on how hard they make refusing tracking cookies"
+readme = "../README.md"
+license = "AGPL-3.0-or-later"
+requires-python = ">=3.11"
+dependencies = ["fastapi>=0.110", "pydantic>=2.6"]
+
+[project.optional-dependencies]
+standalone = ["uvicorn>=0.29"]
+test = ["pytest>=8", "httpx>=0.27", "uvicorn>=0.29", "playwright>=1.44"]
+
+[project.scripts]
+cookiemonsters = "cookiemonsters.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["cookiemonsters*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "../extension/tests"]

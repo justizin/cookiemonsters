@@ -1,0 +1,19 @@
+<!doctype html><meta charset=utf-8><title>Generic German settings</title><script src="_common.js"></script>
+<body><h1>Zeitung</h1>
+<div id="layer1" role="dialog" aria-modal="true" style="position:fixed;inset:auto 0 0 0;background:#fff;padding:16px">
+  <p>Wir verwenden Cookies und ähnliche Technologien. Ihre Einwilligung ist freiwillig.</p>
+  <button onclick="record('accept');document.body.removeChild(document.getElementById('layer1'))">Alle akzeptieren</button>
+  <button onclick="record('settings');document.getElementById('layer1').remove();document.getElementById('layer2').hidden=false">Einstellungen</button>
+</div>
+<div id="layer2" role="dialog" hidden style="position:fixed;top:5%;left:5%;right:5%;background:#fff;padding:16px">
+  <h2>Datenschutz-Einstellungen</h2>
+  <ul>
+    <li><label><input type="checkbox" checked disabled> Notwendig</label></li>
+    <li><label><input type="checkbox" name="stat" checked> Statistik</label></li>
+    <li><label><input type="checkbox" name="mkt" checked> Marketing</label></li>
+    <li><label><input type="checkbox" name="li" checked> Personalisierte Werbung (berechtigtes Interesse)</label></li>
+    <li><label><input type="checkbox" name="soc"> Soziale Medien</label></li>
+  </ul>
+  <button onclick="record('accept');this.closest('[role=dialog]').remove()">Alle akzeptieren</button>
+  <button onclick="record('save:'+[...document.querySelectorAll('#layer2 input')].map(i=>i.checked?1:0).join(''));this.closest('[role=dialog]').remove()">Auswahl speichern</button>
+</div></body>

@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "cookiemonsters",
+  "short_name": "cookiemonsters",
+  "version": "0.1.0",
+  "description": "Refuses non-essential cookies for you and grades how hard each site makes that.",
+  "permissions": ["storage", "alarms"],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_title": "cookiemonsters",
+    "default_popup": "popup/popup.html",
+    "default_icon": {"16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png"}
+  },
+  "icons": {"16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png"},
+  "options_ui": {"page": "options/options.html", "open_in_tab": true},
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["common/generated_rules.js", "content/engine.js", "content/main.js"],
+      "run_at": "document_end",
+      "all_frames": true
+    }
+  ],
+  "content_security_policy": {"extension_pages": "script-src 'self'; object-src 'none'; base-uri 'none'"}
+}

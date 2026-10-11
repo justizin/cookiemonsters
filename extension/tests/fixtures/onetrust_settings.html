@@ -1,0 +1,18 @@
+<!doctype html><meta charset=utf-8><title>OneTrust settings only</title><script src="_common.js"></script>
+<body><h1>Shop</h1>
+<div id="onetrust-consent-sdk">
+  <div id="onetrust-banner-sdk" style="position:fixed;bottom:0;left:0;right:0;background:#fff;padding:16px">
+    <p>This site uses cookies to improve your experience and for advertising.</p>
+    <button id="onetrust-pc-btn-handler" onclick="record('settings');document.getElementById('onetrust-pc-sdk').style.display='block';document.getElementById('onetrust-banner-sdk').style.display='none'">Manage Preferences</button>
+    <button id="onetrust-accept-btn-handler" onclick="record('accept');hide('#onetrust-consent-sdk')" style="padding:14px 40px">Accept All</button>
+  </div>
+  <div id="onetrust-pc-sdk" style="display:none;position:fixed;top:10%;left:10%;right:10%;background:#fff;border:1px solid;padding:16px">
+    <h2>Privacy Preference Center</h2>
+    <div class="ot-cat"><h3>Strictly Necessary Cookies</h3><span>Always Active</span></div>
+    <div class="ot-cat"><label for="c2">Performance Cookies</label><span class="ot-tgl"><input type="checkbox" id="c2" class="category-switch-handler" checked></span></div>
+    <div class="ot-cat"><label for="c3">Targeting Cookies</label><span class="ot-tgl"><input type="checkbox" id="c3" class="category-switch-handler" checked></span></div>
+    <div class="ot-cat"><label for="c4">Functional Cookies</label><span class="ot-tgl"><input type="checkbox" id="c4" class="category-switch-handler"></span></div>
+    <button class="save-preference-btn-handler" onclick="record('save:'+[...document.querySelectorAll('#onetrust-pc-sdk input')].map(i=>i.checked?1:0).join(''));hide('#onetrust-consent-sdk')">Confirm My Choices</button>
+    <button id="accept-recommended-btn-handler" onclick="record('accept');hide('#onetrust-consent-sdk')">Allow All</button>
+  </div>
+</div></body>

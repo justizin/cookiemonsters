@@ -1,0 +1,5 @@
+src/cookiemonsters/
+.wrangler/
+node_modules/
+python_modules/
+.venv-workers/

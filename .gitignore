@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+.pytest_cache/
+.venv/
+extension/dist/
+api/worker/src/cookiemonsters/
+api/worker/.wrangler/
+api/worker/python_modules/
+api/worker/.venv-workers/
+node_modules/
+.DS_Store

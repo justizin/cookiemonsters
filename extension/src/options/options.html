@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cookiemonsters settings</title>
+<link rel="stylesheet" href="../common/ui.css">
+<link rel="stylesheet" href="options.css">
+</head>
+<body>
+<!-- GENERATED from options.template.html + shared/privacy.md by tools/sync_generated.py. Do not edit. -->
+<main>
+<h1>cookiemonsters</h1>
+<p class="muted">Refuses non-essential cookies for you and measures how hard each site made that.</p>
+
+<section class="card">
+  <h2>Grading server</h2>
+  <p class="small">Leave this empty and nothing ever leaves your browser. For the most privacy, run the server on your own computer and use <code>http://127.0.0.1:8787</code>.</p>
+  <label for="serverUrl">Server address</label>
+  <input id="serverUrl" type="url" placeholder="http://127.0.0.1:8787" autocomplete="off" spellcheck="false">
+  <label for="token">Report token <span class="muted">(only if your server requires one)</span></label>
+  <input id="token" type="password" autocomplete="off">
+  <label class="check"><input id="reporting" type="checkbox"> <span>Send anonymous reports about cookie banners (batched, sent later, at most one per site per day)</span></label>
+  <label class="check"><input id="lookups" type="checkbox"> <span>Show site grades from the server (asked for by a shared code, not by site name)</span></label>
+  <div class="row actions">
+    <button id="save">Save</button>
+    <button id="grant" hidden>Allow access to this server</button>
+    <button id="flush">Send queued reports now</button>
+    <span id="status" class="muted small" role="status"></span>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Behaviour</h2>
+  <label class="check"><input id="paused" type="checkbox"> <span>Pause cookiemonsters everywhere</span></label>
+  <label class="check"><input id="allowReserved" type="checkbox"> <span>Developer: also run on <code>.test</code> and other reserved names</span></label>
+  <p class="small muted" id="disabledSites"></p>
+</section>
+
+<section class="privacy">
+<h1>What cookiemonsters knows about you</h1>
+<p>cookiemonsters exists to say "no" to tracking on your behalf. It would be absurd for it to track you instead, so this page lists everything it sends, what of that could point back to you, and why that small part cannot be avoided.</p>
+<h2>The short version</h2>
+<ul><li><strong>Out of the box, nothing leaves your browser.</strong> The extension clicks "Reject" for you and keeps a short note about what happened so the toolbar button can show it. That note stays on your computer.</li><li><strong>Only if you enter a grading server address</strong> in the settings does anything get sent: a short report about each cookie banner, and a question asking for a site's grade. You can turn either one off separately.</li><li><strong>The one thing that can identify you is which websites you visit.</strong> A grade is about a website, so a report has to name the website. Everything below explains how little else is sent and what is done to keep that list from being built up.</li></ul>
+<h2>What a report contains</h2>
+<p>This is the whole report. The server checks every field against a fixed list of allowed values and refuses anything else.</p>
+<table><tr><th>What</th><th>Example</th><th>Why</th></tr><tr><td>Website</td><td><code>example.com</code></td><td>The grade is about the website. Only the site name is sent: <code>https://shop.example.com/orders/1234?ref=email</code> becomes <code>example.com</code>. Never the page, the address, the title or anything you typed.</td></tr><tr><td>What happened</td><td><code>rejected_in_settings</code></td><td>Whether saying no worked, and how much digging it took.</td></tr><tr><td>Clicks</td><td><code>3</code></td><td>How many clicks it took to say no.</td></tr><tr><td>Switches turned off</td><td><code>4</code></td><td>How many separate on/off switches had to be turned off.</td></tr><tr><td>Tricks noticed</td><td><code>pre_ticked</code></td><td>From a fixed list of six, such as switches that were already on, or a banner that came back after you said no.</td></tr><tr><td>Consent tool</td><td><code>onetrust</code></td><td>Which off-the-shelf cookie banner the site uses, so the extension's rules can be fixed when that tool changes.</td></tr><tr><td>Extension version and browser</td><td><code>0.1.0</code>, <code>firefox</code></td><td>So reports from a broken version can be spotted. The browser is only "chrome", "firefox", "safari", "edge" or "other".</td></tr></table>
+<p>There is <strong>no</strong> name, account, user number, install number, cookie or timestamp in a report.</p>
+<h2>What could identify you, and why</h2>
+<p><strong>1. The websites you visit.</strong> A list of the sites someone visits says a lot about them even without a name attached. The server therefore keeps <strong>no list of reports</strong>. Each report is added to a running tally for that website and that week ("example.com, week 41: 3 reports, 2 needed the settings panel, 1 had pre-ticked switches") and the report itself is thrown away. Nothing records which reports came from the same person, and nothing is kept more precisely than the week.</p>
+<p>Be aware of what that still means while <strong>you are the only person using the server</strong>: every tally exists because you visited that site, so the tallies together amount to "sites this person visited, and in which week." That is unavoidable when one person grades sites, and it is why the safest setup is running the server on your own computer (see the end of this page). Once many people share a server, a tally no longer points at anyone in particular.</p>
+<p><strong>2. Your internet address (IP address).</strong> Every server you talk to sees it; that is how the reply finds its way back. The grading server uses it for one thing only: stopping a single source from flooding a site's grade. It never stores the address. It mixes the address with a random secret that exists for one day, keeps a counter next to the resulting scrambled code, and deletes the secret after the day ends. From then on nobody, including whoever runs the server, can turn those codes back into addresses. While that day lasts, someone who controls the server and already knows your address could test whether you reported a particular site that day; after it ends, they cannot. If the server runs on Cloudflare, Cloudflare also sees your address while delivering the request, under its own privacy policy.</p>
+<p><strong>3. When you send.</strong> If reports went out the moment you visited a site, the time they arrived could reveal when you were browsing. The extension instead saves them up and sends them together at a random time later, and sends at most one report per site per day.</p>
+<h2>Asking for a grade</h2>
+<p>To show a grade, the extension has to ask the server about a site, and a plain question ("what is the grade for example.com?") would tell the server what you are looking at. So it asks a vaguer question instead. It turns the site name into a scrambled code and sends only the first one to four characters of it, which many sites share. The server sends back the grades of every site whose code starts that way, and the extension picks out the one it wanted. It is like asking a librarian for every book whose title starts with "Ca" instead of naming the book.</p>
+<p>This hides more when the server knows about many sites. The server tells the extension how many characters to send so that each answer covers about twenty sites; when it knows only a few sites, a short code still covers only a few. Answers are kept in your browser for six hours so the same question is not asked again.</p>
+<h2>What is never sent</h2>
+<ul><li>Your name, email address, accounts or logins.</li><li>The address of the page, its title, its content or anything you typed.</li><li>Cookie names or values. The extension looks at cookie *names* on your computer to notice well-known tracking cookies set before you answered, and sends only "yes, that happened".</li><li>Your history, your open tabs or the order you visited sites in.</li><li>Anything at all, unless you entered a server address.</li></ul>
+<h2>Why the extension needs the permissions it asks for</h2>
+<ul><li><strong>Read and change data on all websites</strong>: to find cookie banners on any site and click the buttons in them. It only ever clicks buttons that refuse or save choices. It never clicks "Accept", and it never hides a banner it could not refuse, because that would leave tracking on while making you think it was off.</li><li><strong>Storage</strong>: to remember your settings, the short notes for the toolbar button and cached grades, all on your computer.</li><li><strong>Alarms</strong>: to send saved-up reports later instead of right away.</li></ul>
+<h2>How the server protects the data</h2>
+<ul><li>It accepts only the exact report format above, refuses large or malformed requests, and does not repeat back what it was sent.</li><li>It re-checks the website name against the public list of internet domain endings, so a report can only count toward a real website, never toward a made-up name, <code>localhost</code> or an IP address.</li><li>A private server can require a password (a "report token") so only your extension can send reports.</li><li>It keeps no access logs, sets no cookies and has no accounts.</li><li>The published grades contain no personal information, so anyone may read them.</li><li>Everything is open source under the AGPL; you can check every claim here in the code.</li></ul>
+<h2>The most private setup</h2>
+<p>Run the server on your own computer (<code>cookiemonsters serve</code>) and enter <code>http://127.0.0.1:8787</code> as the server address. You still get reports and grades, and none of it ever leaves your machine.</p>
+</section>
+</main>
+<script src="options.js"></script>
+</body>
+</html>

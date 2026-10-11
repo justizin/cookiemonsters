@@ -1,0 +1,26 @@
+:root {
+  --bg: #fbfaf7; --fg: #1d1d1f; --muted: #6b6b70; --line: #e4e2dc; --card: #ffffff; --accent: #2457c5;
+  --A: #1a7f37; --B: #4d8f1d; --C: #b08800; --D: #c25e00; --F: #cf222e; --Q: #6e7781;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #18181a; --fg: #ecebe6; --muted: #a2a1a8; --line: #333338; --card: #222226; --accent: #8fb3ff; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--fg); }
+a { color: var(--accent); }
+h1 { font-size: 15px; margin: 0; letter-spacing: .01em; }
+h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 16px 0 6px; }
+.muted { color: var(--muted); }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+.grade { font: 700 34px/1 ui-rounded, system-ui, sans-serif; width: 52px; height: 52px; border-radius: 12px; display: grid; place-items: center; color: #fff; background: var(--Q); flex: none; }
+.grade.A { background: var(--A); } .grade.B { background: var(--B); } .grade.C { background: var(--C); }
+.grade.D { background: var(--D); } .grade.F { background: var(--F); }
+.row { display: flex; gap: 12px; align-items: center; }
+ul { margin: 6px 0 0; padding-left: 18px; }
+button { font: inherit; border: 1px solid var(--line); background: var(--card); color: var(--fg); border-radius: 8px; padding: 6px 10px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+label { display: block; margin: 10px 0 4px; font-weight: 600; }
+input[type=text], input[type=url], input[type=password] { width: 100%; padding: 7px 9px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--fg); font: inherit; }
+.check { display: flex; gap: 8px; align-items: flex-start; font-weight: 400; }
+.check input { margin-top: 3px; }

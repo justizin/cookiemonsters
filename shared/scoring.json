@@ -1,0 +1,44 @@
+{
+  "scoring_version": 1,
+  "comment": "Single source of truth for friction scoring. Compiled by tools/sync_generated.py into api/cookiemonsters/_generated.py and extension/src/common/generated_core.js. Friction points: 0 = effortless refusal, 100 = refusal impossible. score = 100 - friction.",
+  "outcome_base": {
+    "no_banner": 0,
+    "rejected_first_layer": 5,
+    "rejected_in_settings": 25,
+    "rejected_by_toggles": 35,
+    "reject_failed": 60,
+    "accept_only": 75,
+    "consent_or_pay": 80
+  },
+  "extra_click_points": 4,
+  "extra_click_cap": 20,
+  "toggle_points": 2,
+  "toggle_cap": 16,
+  "flag_points": {
+    "pre_ticked": 8,
+    "legitimate_interest": 6,
+    "reject_less_prominent": 6,
+    "banner_reappeared": 10,
+    "tracking_before_choice": 10,
+    "reject_needs_scroll": 4
+  },
+  "min_clicks_for_outcome": {
+    "no_banner": 0,
+    "rejected_first_layer": 1,
+    "rejected_in_settings": 2,
+    "rejected_by_toggles": 2,
+    "reject_failed": 0,
+    "accept_only": 0,
+    "consent_or_pay": 0
+  },
+  "grade_bands": [
+    ["A", 10],
+    ["B", 25],
+    ["C", 45],
+    ["D", 70],
+    ["F", 101]
+  ],
+  "flag_share_threshold": 0.5,
+  "window_weeks": 13,
+  "confidence": {"medium": 3, "high": 10}
+}

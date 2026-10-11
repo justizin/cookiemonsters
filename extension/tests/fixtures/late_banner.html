@@ -1,0 +1,13 @@
+<!doctype html><meta charset=utf-8><title>Late banner</title><script src="_common.js"></script>
+<body><h1>SPA</h1>
+<script>
+  setTimeout(() => {
+    const d = document.createElement('div');
+    d.id = 'cookie-law';
+    d.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#fff;padding:12px';
+    d.innerHTML = '<p>This website uses cookies.</p><button id="ok">Accept</button><button id="no">Decline</button>';
+    document.body.appendChild(d);
+    d.querySelector('#ok').onclick = () => { record('accept'); d.remove(); };
+    d.querySelector('#no').onclick = () => { record('reject'); d.remove(); };
+  }, 1500);
+</script></body>
