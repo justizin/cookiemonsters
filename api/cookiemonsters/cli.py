@@ -26,8 +26,8 @@ def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="cookiemonsters", description="cookiemonsters grading server (standalone)")
     sub = p.add_subparsers(dest="cmd", required=True)
     s = sub.add_parser("serve", help="run the HTTP API locally")
-    s.add_argument("--host", default="127.0.0.1", help="bind address (default 127.0.0.1 — local only)")
-    s.add_argument("--port", type=int, default=8787)
+    s.add_argument("--host", default=os.environ.get("CM_HOST", "127.0.0.1"), help="bind address (default 127.0.0.1 — local only; env CM_HOST)")
+    s.add_argument("--port", type=int, default=int(os.environ.get("CM_PORT", "8787")), help="port (default 8787; env CM_PORT)")
     s.add_argument("--db", default=str(DEFAULT_DB), help="SQLite file (default ~/.cookiemonsters/cookiemonsters.sqlite3)")
     m = sub.add_parser("maintain", help="prune expired data and refresh stale summaries")
     m.add_argument("--db", default=str(DEFAULT_DB))
@@ -48,7 +48,9 @@ def main(argv: list[str] | None = None) -> int:
 
         from .app import create_app
 
-        if args.host not in ("127.0.0.1", "::1", "localhost"):
+        if os.environ.get("CM_CONTAINER") == "1":
+            print(f"listening on {args.host}:{args.port} inside the container; publish it on the host as 127.0.0.1:{args.port} to keep it private.", file=sys.stderr)
+        elif args.host not in ("127.0.0.1", "::1", "localhost"):
             print(f"warning: listening on {args.host}; reports reveal which sites you visit — keep this private.", file=sys.stderr)
         uvicorn.run(create_app(svc), host=args.host, port=args.port, server_header=False, access_log=False)
     elif args.cmd == "maintain":

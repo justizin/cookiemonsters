@@ -10,11 +10,15 @@
 - Standalone server via `cookiemonsters serve` (pip-installed into a fresh venv): health, report, feed, export; no access-log lines.
 - `npx wrangler d1 migrations apply --local` applied the generated migration; `wrangler dev` bundled the Worker and its modules.
 
+- Container (added 2026-10-17): `Containerfile` built with Docker 29 and run with `--read-only --cap-drop ALL --security-opt no-new-privileges` and a named volume. It ran as uid 10001, answered `/healthz`, refused reports without the token, accepted one with it, kept the data across a restart, reported healthy, wrote no request logs, and `export` worked from a one-off container. `docker compose config` validates `compose.yaml`. Docker Hub is blocked in this sandbox, so the build used a stand-in base image (this machine's Python 3.13 on glibc) passed as `PYTHON_IMAGE`, not `python:3.13-slim-bookworm` itself.
+
 ## Not verified here
 
 - **The Python Worker did not execute.** `workerd` must download the Pyodide runtime (`pyodide-capnp-bin.edgeworker.net`) and `pywrangler` must reach `index.pyodide.org`; both are blocked in this sandbox. Run `pywrangler dev` in `api/worker/` once before deploying. The ASGI bridge contract (`asgi.fetch(app, request.js_object, env)` with `env` in `scope["env"]`) is covered only by tests with stand-ins.
 - Firefox and Safari were not run; their manifests are generated from the same base and checked only for referenced files. `--safari-xcode` was not run (no macOS).
 - CMP selectors were exercised against fixtures that imitate each vendor's markup, not against live sites. Expect some to need adjusting; `reject_failed` reports are the signal.
+
+- Podman, `podman compose` and the Quadlet unit were not run (no Podman here).
 
 ## Known gaps
 

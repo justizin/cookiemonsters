@@ -1,0 +1,9 @@
+# Only api/ is needed in the image; keep everything else out of the build context.
+*
+!api/
+api/tests/
+api/worker/
+**/__pycache__/
+**/*.pyc
+**/*.egg-info/
+api/build/

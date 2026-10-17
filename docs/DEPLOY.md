@@ -20,7 +20,40 @@ Environment variables (same names in the Worker):
 | `CM_RATE_PER_SITE_DAY` | 5 | Reports per client per site per day. |
 | `CM_TRUST_CF_HEADERS` | off | Take the client address from `CF-Connecting-IP` (only behind Cloudflare). |
 | `CM_ALLOW_RESERVED_TLDS` | off | Accept `.test` etc. (testing only). |
-| `CM_DB_PATH` | `~/.cookiemonsters/…` | Standalone database file. |
+| `CM_DB_PATH` | `~/.cookiemonsters/…` | Standalone database file (`/data/cookiemonsters.sqlite3` in the container). |
+| `CM_HOST`, `CM_PORT` | `127.0.0.1`, `8787` | Bind address and port for `serve` (the container sets `0.0.0.0`). |
+
+## Container
+
+The `Containerfile` builds the standalone server into a small image: Python 3.13 slim, non-root (uid 10001), SQLite on a `/data` volume, health check on `/healthz`, no request logs. Podman and Buildah use `Containerfile` by default; Docker needs `-f Containerfile`. `.dockerignore` is a symlink to `.containerignore`, so both tools send only `api/` as build context.
+
+```sh
+# Podman (macOS: `podman machine init && podman machine start` first)
+podman build -t cookiemonsters .
+podman run -d --name cookiemonsters -p 127.0.0.1:8787:8787 -v cookiemonsters-data:/data \
+  --read-only --tmpfs /tmp --cap-drop ALL --security-opt no-new-privileges cookiemonsters
+
+# Docker
+docker build -f Containerfile -t cookiemonsters .
+docker run -d --name cookiemonsters -p 127.0.0.1:8787:8787 -v cookiemonsters-data:/data \
+  --read-only --tmpfs /tmp --cap-drop ALL --security-opt no-new-privileges cookiemonsters
+
+# Either, with the same hardening already written down:
+podman compose up -d        # or: docker compose up -d
+```
+
+Keep the `127.0.0.1:` in the port mapping. Inside the container the server must listen on all interfaces, so the host-side mapping is what keeps it private; `-p 8787:8787` would expose it to your network.
+
+Configuration is the environment variables above (`-e CM_REPORT_TOKEN=…`). Other commands run in a one-off container against the same volume:
+
+```sh
+podman run --rm -v cookiemonsters-data:/data cookiemonsters export > feed.jsonl
+podman run --rm -v cookiemonsters-data:/data cookiemonsters maintain
+```
+
+On a Linux host with systemd, `deploy/cookiemonsters.container` is a Podman Quadlet unit that runs the same container as a user service; instructions are at the top of the file.
+
+To build on a different base image (a pinned digest, a mirror), pass `--build-arg PYTHON_IMAGE=…`.
 
 ## Cloudflare Workers (Python) + D1
 

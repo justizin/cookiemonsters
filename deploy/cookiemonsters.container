@@ -1,0 +1,29 @@
+# Podman Quadlet unit: run the server as a systemd service, no Docker daemon.
+#
+#   podman build -t localhost/cookiemonsters:latest .
+#   mkdir -p ~/.config/containers/systemd && cp deploy/cookiemonsters.container ~/.config/containers/systemd/
+#   systemctl --user daemon-reload && systemctl --user start cookiemonsters
+#   loginctl enable-linger "$USER"     # keep it running after you log out
+#
+# Linux only (Quadlet is part of Podman 4.4+ on systemd hosts). On macOS use
+# `podman run` or `podman compose` instead; see docs/DEPLOY.md.
+
+[Unit]
+Description=cookiemonsters grading server
+
+[Container]
+Image=localhost/cookiemonsters:latest
+ContainerName=cookiemonsters
+PublishPort=127.0.0.1:8787:8787
+Volume=cookiemonsters-data:/data
+ReadOnly=true
+Tmpfs=/tmp
+DropCapability=ALL
+NoNewPrivileges=true
+# Environment=CM_REPORT_TOKEN=change-me
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

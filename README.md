@@ -15,6 +15,10 @@ Branch `attempt/claude-opus-5.5` · License AGPL-3.0-or-later (Public Suffix Lis
 pip install "./api[standalone]"
 cookiemonsters serve                     # http://127.0.0.1:8787, data in ~/.cookiemonsters/
 
+# …or in a container (Podman or Docker; see docs/DEPLOY.md#container)
+podman build -t cookiemonsters .          # docker build -f Containerfile -t cookiemonsters .
+podman run -d -p 127.0.0.1:8787:8787 -v cookiemonsters-data:/data cookiemonsters
+
 # 2. build the extension
 python extension/build.py                # -> extension/dist/{chrome,firefox,safari}/ and .zip files
 ```
@@ -34,6 +38,7 @@ shared/        single sources: scoring weights, test vectors, Public Suffix List
 api/           cookiemonsters Python package (FastAPI app, scoring, storage, CLI) + tests
 api/worker/    Cloudflare Python Worker entry, wrangler.toml, D1 migration
 extension/     MV3 source (src/), CMP rules (rules/), per-browser manifest overlays, build.py, tests
+deploy/        Podman Quadlet unit (Containerfile and compose.yaml sit at the root)
 tools/         sync_generated.py (regenerates derived files), worker_sync.py, make_icons.py
 docs/          DESIGN, PRIVACY, SCORING, DATA_FEED, SECURITY, DEPLOY, STATUS
 ```

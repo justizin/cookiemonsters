@@ -1,0 +1,22 @@
+# podman compose up -d   or   docker compose up -d
+services:
+  cookiemonsters:
+    build:
+      context: .
+      dockerfile: Containerfile
+    image: cookiemonsters:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8787:8787"   # loopback only: reports reveal which sites you visit
+    volumes:
+      - cookiemonsters-data:/data
+    environment:
+      # CM_REPORT_TOKEN: "change-me"   # require a bearer token for reports
+      CM_PUBLISH_MIN_REPORTS: "1"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    tmpfs: ["/tmp"]
+
+volumes:
+  cookiemonsters-data:
