@@ -11,7 +11,9 @@ Branch `attempt/claude-opus-5.5` · License AGPL-3.0-or-later (Public Suffix Lis
 ## Quick start
 
 ```sh
-# 1. grading server on your own machine (Python 3.11+)
+# 1. grading server on your own machine (Python 3.11+; not macOS's built-in 3.9)
+python3.13 -m venv .venv && source .venv/bin/activate
+python -m pip install -U pip              # old pip (<22) backtracks for ages on this
 pip install "./api[standalone]"
 cookiemonsters serve                     # http://127.0.0.1:8787, data in ~/.cookiemonsters/
 

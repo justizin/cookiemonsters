@@ -2,7 +2,10 @@
 
 ## Standalone (recommended for one person)
 
+Use Python 3.11 or newer in a virtual environment with a current pip. The Python that ships with Apple's Command Line Tools is 3.9 with pip 21, which cannot install this and backtracks through dependency versions for a long time before failing.
+
 ```sh
+python3.13 -m venv .venv && source .venv/bin/activate && python -m pip install -U pip
 pip install "./api[standalone]"
 cookiemonsters serve                         # 127.0.0.1:8787, SQLite at ~/.cookiemonsters/cookiemonsters.sqlite3
 cookiemonsters serve --db ./cm.sqlite3 --port 9000
