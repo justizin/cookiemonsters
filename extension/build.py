@@ -67,9 +67,25 @@ def build(target: str) -> Path:
     return out
 
 
+XCODE_HELP = """\
+--safari-xcode needs the full Xcode app; the Command Line Tools alone do not include
+safari-web-extension-converter. xcode-select currently points at:
+    {dev}
+Fix:
+    1. Install Xcode from the App Store (skip if /Applications/Xcode.app exists) and open it once.
+    2. sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+    3. sudo xcodebuild -license accept
+    4. xcrun --find safari-web-extension-converter    # should print a path
+The unpacked Safari build is already in {dist} if you want to convert it yourself."""
+
+
 def safari_xcode(dist_safari: Path) -> None:
     if sys.platform != "darwin" or not shutil.which("xcrun"):
         raise SystemExit("--safari-xcode needs macOS with Xcode (xcrun safari-web-extension-converter)")
+    found = subprocess.run(["xcrun", "--find", "safari-web-extension-converter"], capture_output=True, text=True)
+    if found.returncode != 0:
+        dev = subprocess.run(["xcode-select", "-p"], capture_output=True, text=True).stdout.strip() or "(unknown)"
+        raise SystemExit(XCODE_HELP.format(dev=dev, dist=dist_safari.relative_to(ROOT)))
     subprocess.run(
         ["xcrun", "safari-web-extension-converter", str(dist_safari), "--project-location", str(DIST / "safari-xcode"),
          "--app-name", "cookiemonsters", "--bundle-identifier", "local.cookiemonsters", "--no-open", "--force"],

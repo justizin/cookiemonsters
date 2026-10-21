@@ -90,7 +90,7 @@ Output: `extension/dist/<browser>/` (unpacked) and `extension/dist/cookiemonster
 
 ### Safari
 
-Needs macOS and Xcode.
+Needs macOS and the full Xcode app — the Command Line Tools alone do not include `safari-web-extension-converter`. If `xcode-select -p` prints `/Library/Developer/CommandLineTools`, run `sudo xcode-select -s /Applications/Xcode.app/Contents/Developer` (after installing Xcode and opening it once).
 
 ```sh
 python extension/build.py safari --safari-xcode
