@@ -29,4 +29,4 @@
   }
 
   global.CMScore = { visitFriction, gradeFor, median, version: W.scoring_version };
-})(typeof window !== 'undefined' ? window : globalThis);
+})(globalThis);

@@ -11,3 +11,4 @@ api/worker/python_modules/
 api/worker/.venv-workers/
 node_modules/
 .DS_Store
+demo-videos/

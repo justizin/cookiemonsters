@@ -349,7 +349,7 @@
   async function run(opts) {
     opts = opts || {};
     const doc = opts.document || document;
-    const isTop = opts.isTop != null ? opts.isTop : global === global.top;
+    const isTop = opts.isTop != null ? opts.isTop : typeof window !== 'undefined' && window === window.top;
     const timeoutMs = opts.timeoutMs != null ? opts.timeoutMs : 15000;
     const settleMs = opts.settleMs != null ? opts.settleMs : 400;
     const goneMs = opts.goneMs != null ? opts.goneMs : 2500;
@@ -477,4 +477,4 @@
   }
 
   global.CMEngine = { run, classify, detect: (d) => detect(d || document), trackerCookiePresent: (d) => trackerCookiePresent(d || document), version: DATA.rules.version };
-})(typeof window !== 'undefined' ? window : globalThis);
+})(globalThis);

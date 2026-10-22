@@ -20,4 +20,4 @@
     },
     confidence: { low: 'from very few reports', medium: 'from several reports', high: 'from many reports' },
   };
-})(typeof window !== 'undefined' ? window : globalThis);
+})(globalThis);

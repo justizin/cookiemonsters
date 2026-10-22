@@ -53,8 +53,11 @@ python tools/sync_generated.py --check              # derived files up to date
 python -m pytest api/tests                          # 76 API tests
 node extension/tests/scoring_parity.mjs             # JS scorer + PSL == Python, same vectors
 python -m pytest extension/tests                    # 48 engine tests + 2 packaged-extension end-to-end tests
+                                                    # + 3 Firefox tests when FIREFOX and GECKODRIVER are set
 ```
 
 The extension tests run real headless Chromium through Playwright (`pip install playwright && playwright install chromium`). The end-to-end test loads the built Chrome extension, browses fixture sites on `.test` names, reports to a live standalone API, and checks the grade comes back through the private lookup — and that no request to the server ever contained a site name except the reports themselves.
+
+`extension/demo/record.py` records the extension in Chrome and Firefox on four demo sites, with and without the extension, and builds side-by-side videos (instructions at the top of the file).
 
 What was and was not verified is in [docs/STATUS.md](docs/STATUS.md).

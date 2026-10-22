@@ -300,12 +300,15 @@ async function toggleSite(site) {
 api.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (!msg || typeof msg.type !== 'string') return false;
   // Only our own pages and content scripts can reach this listener (no externally_connectable).
+  // Popup/settings messages are accepted only from our own extension pages. A settings page
+  // opened in a tab has sender.tab set too, so check the sender's URL, not the tab.
+  const fromOwnPage = typeof sender.url === 'string' && sender.url.startsWith(api.runtime.getURL(''));
   let p = null;
   if (msg.type === 'cm:config') p = onConfig(sender);
   else if (msg.type === 'cm:result') p = onResult(msg, sender).then(() => ({ ok: true }));
-  else if (msg.type === 'cm:popup' && !sender.tab) p = onPopup(msg.tabId);
-  else if (msg.type === 'cm:toggle-site' && !sender.tab) p = toggleSite(String(msg.site));
-  else if (msg.type === 'cm:flush-now' && !sender.tab) p = flush();
+  else if (msg.type === 'cm:popup' && fromOwnPage) p = onPopup(msg.tabId);
+  else if (msg.type === 'cm:toggle-site' && fromOwnPage) p = toggleSite(String(msg.site));
+  else if (msg.type === 'cm:flush-now' && fromOwnPage) p = flush();
   if (!p) return false;
   p.then(sendResponse, (e) => sendResponse({ error: String(e) }));
   return true;

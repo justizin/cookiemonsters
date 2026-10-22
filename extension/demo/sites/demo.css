@@ -1,0 +1,37 @@
+/* Demo sites for the recorded before/after videos. Invented names, no real brands. */
+* { box-sizing: border-box; }
+body { margin: 0; font: 17px/1.55 Georgia, "DejaVu Serif", serif; color: #1f1f1f; background: #f7f5f0; }
+header.site { background: #12263a; color: #fff; padding: 18px 40px; display: flex; align-items: baseline; gap: 28px; }
+header.site .logo { font: 700 28px/1 "Poppins", system-ui, sans-serif; letter-spacing: -.02em; }
+header.site nav { font: 14px system-ui, sans-serif; opacity: .85; display: flex; gap: 18px; }
+main { max-width: 780px; margin: 30px auto; padding: 0 24px; }
+h1 { font-size: 36px; line-height: 1.15; margin: 0 0 8px; }
+.dek { color: #555; font-size: 19px; margin: 0 0 20px; }
+.byline { font: 13px system-ui, sans-serif; color: #777; margin-bottom: 24px; }
+.hero { height: 220px; border-radius: 6px; background: linear-gradient(135deg, #7aa6c2, #c9d9b7 60%, #e8c88a); margin-bottom: 24px; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.card { background: #fff; border-radius: 8px; padding: 14px; box-shadow: 0 1px 3px #0002; font: 15px system-ui, sans-serif; }
+.card .img { height: 120px; border-radius: 6px; margin-bottom: 10px; background: linear-gradient(135deg, #d9c3a5, #a7b8c9); }
+.card:nth-child(2) .img { background: linear-gradient(135deg, #9fc5b0, #e3d3a0); }
+.card:nth-child(3) .img { background: linear-gradient(135deg, #c8a2b8, #a9c0de); }
+
+/* banners and panels */
+.cm-ui { font: 15px/1.45 system-ui, "Inter", sans-serif; color: #222; }
+.cm-ui button { font: 600 15px system-ui, sans-serif; border-radius: 6px; padding: 11px 20px; cursor: pointer; border: 2px solid #12263a; background: #fff; color: #12263a; }
+.cm-ui button.primary { background: #12263a; color: #fff; }
+.cm-ui .btnrow { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+.cm-bar { position: fixed; left: 0; right: 0; bottom: 0; background: #fff; box-shadow: 0 -6px 24px #0003; padding: 22px 40px; z-index: 50; }
+.cm-bar h2 { margin: 0 0 6px; font-size: 18px; }
+.cm-shade { position: fixed; inset: 0; background: #0007; z-index: 40; }
+.cm-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 560px; max-height: 86vh; overflow: auto; background: #fff; border-radius: 12px; padding: 26px 30px; z-index: 60; box-shadow: 0 20px 60px #0006; }
+.cm-modal h2 { margin: 0 0 8px; font-size: 21px; }
+.cm-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-top: 1px solid #e6e6e6; }
+.cm-row .always { font-size: 13px; color: #2b7a3d; font-weight: 600; }
+.switch { position: relative; width: 50px; height: 28px; flex: none; }
+.switch input { position: absolute; inset: 0; opacity: 0; margin: 0; width: 100%; height: 100%; cursor: pointer; z-index: 2; }
+.switch span { position: absolute; inset: 0; border-radius: 28px; background: #bbb; transition: background .15s; }
+.switch span::after { content: ""; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: #fff; transition: left .15s; }
+.switch input:checked + span { background: #1f8a45; }
+.switch input:checked + span::after { left: 25px; }
+.switch input:disabled + span { opacity: .55; }
+[hidden] { display: none !important; }

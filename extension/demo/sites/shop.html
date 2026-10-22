@@ -1,0 +1,40 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Fixture Outfitters</title>
+<link rel="stylesheet" href="demo.css"><script src="demo.js"></script>
+<body>
+<header class="site" style="background:#3b2a1a"><div class="logo">Fixture Outfitters</div><nav><span>Jackets</span><span>Boots</span><span>Packs</span><span>Sale</span></nav></header>
+<main><h1>Autumn trail collection</h1><p class="dek">Waterproof shells, merino layers and boots built for wet ridgelines.</p><div class="hero" style="background:linear-gradient(135deg,#8c6b4a,#c9b48a 55%,#6f8a6a)"></div>
+<div class="grid"><div class="card"><div class="img"></div>Ridgeline shell jacket — $189</div><div class="card"><div class="img"></div>Merino quarter-zip — $95</div><div class="card"><div class="img"></div>Waterproof hiker — $165</div></div></main>
+<div id="onetrust-consent-sdk" class="cm-ui">
+  <div id="onetrust-banner-sdk" class="cm-bar" hidden>
+    <h2>This site uses cookies</h2>
+    We use cookies to improve your experience, measure performance and show you relevant ads.
+    <div class="btnrow">
+      <button id="onetrust-pc-btn-handler">Manage Preferences</button>
+      <button id="onetrust-accept-btn-handler" class="primary" style="padding:13px 60px" onclick="closeAll('accept')">Accept All</button>
+    </div>
+  </div>
+  <div class="cm-shade" id="shade" hidden></div>
+  <div id="onetrust-pc-sdk" class="cm-modal" hidden>
+    <h2>Privacy Preference Center</h2>
+    <p style="margin:0 0 10px;color:#555">Choose which kinds of cookies we may use.</p>
+    <div class="cm-row"><div><b>Strictly Necessary Cookies</b></div><span class="always">Always Active</span></div>
+    <div class="cm-row"><label for="c2"><b>Performance Cookies</b></label><span class="switch ot-tgl"><input type="checkbox" id="c2" class="category-switch-handler" checked><span></span></span></div>
+    <div class="cm-row"><label for="c3"><b>Targeting Cookies</b></label><span class="switch ot-tgl"><input type="checkbox" id="c3" class="category-switch-handler" checked><span></span></span></div>
+    <div class="cm-row"><label for="c4"><b>Social Media Cookies</b></label><span class="switch ot-tgl"><input type="checkbox" id="c4" class="category-switch-handler" checked><span></span></span></div>
+    <div class="cm-row"><label for="c5"><b>Functional Cookies</b></label><span class="switch ot-tgl"><input type="checkbox" id="c5" class="category-switch-handler"><span></span></span></div>
+    <div class="btnrow">
+      <button class="save-preference-btn-handler">Confirm My Choices</button>
+      <button id="accept-recommended-btn-handler" class="primary" onclick="closeAll('accept')">Allow All</button>
+    </div>
+  </div>
+</div>
+<script>
+  document.getElementById('onetrust-pc-btn-handler').onclick = () => {
+    log('settings');
+    document.getElementById('onetrust-banner-sdk').hidden = true;
+    setTimeout(() => { document.getElementById('shade').hidden = false; document.getElementById('onetrust-pc-sdk').hidden = false; }, 500);
+  };
+  document.querySelector('.save-preference-btn-handler').onclick = () => { log('save:' + toggles('#onetrust-pc-sdk input')); setTimeout(closeAll, 300); };
+  showLater(['onetrust-banner-sdk']);
+</script>
+</body></html>

@@ -64,4 +64,4 @@
   }
 
   global.CMSite = { siteOf, hashHex };
-})(typeof window !== 'undefined' ? window : globalThis);
+})(globalThis);

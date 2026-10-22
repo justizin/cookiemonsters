@@ -1,0 +1,35 @@
+<!doctype html><html lang="de"><meta charset="utf-8"><title>Tageblatt Test</title>
+<link rel="stylesheet" href="demo.css"><script src="demo.js"></script>
+<body>
+<header class="site" style="background:#7a1020"><div class="logo">Tageblatt Test</div><nav><span>Politik</span><span>Wirtschaft</span><span>Kultur</span><span>Sport</span></nav></header>
+<main><h1>Neue Straßenbahnlinie soll 2028 fahren</h1><p class="dek">Der Stadtrat hat den Bau der Verbindung zwischen Hauptbahnhof und Hafen beschlossen.</p><div class="hero" style="background:linear-gradient(135deg,#b0b9c6,#e2d2b0 60%,#a4c2a8)"></div><p>Die neue Linie soll rund 40.000 Fahrgäste am Tag befördern. Die Bauarbeiten beginnen im kommenden Frühjahr.</p></main>
+<div class="cm-shade cm-ui" id="shade" hidden></div>
+<div id="layer1" class="cm-modal cm-ui" role="dialog" aria-modal="true" hidden>
+  <h2>Wir respektieren Ihre Privatsphäre</h2>
+  Wir und unsere Partner verwenden Cookies und ähnliche Technologien, um Inhalte und Werbung zu personalisieren. Ihre Einwilligung ist freiwillig.
+  <div class="btnrow">
+    <button onclick="openSettings()">Einstellungen</button>
+    <button class="primary" style="padding:13px 50px" onclick="closeAll('accept')">Alle akzeptieren</button>
+  </div>
+</div>
+<div id="layer2" class="cm-modal cm-ui" role="dialog" aria-modal="true" hidden>
+  <h2>Datenschutz-Einstellungen</h2>
+  <div class="cm-row"><label for="n">Notwendig</label><span class="switch"><input type="checkbox" id="n" checked disabled><span></span></span></div>
+  <div class="cm-row"><label for="s">Statistik</label><span class="switch"><input type="checkbox" id="s" checked><span></span></span></div>
+  <div class="cm-row"><label for="m">Marketing</label><span class="switch"><input type="checkbox" id="m" checked><span></span></span></div>
+  <div class="cm-row"><label for="li">Personalisierte Werbung (berechtigtes Interesse)</label><span class="switch"><input type="checkbox" id="li" checked><span></span></span></div>
+  <div class="cm-row"><label for="so">Soziale Medien</label><span class="switch"><input type="checkbox" id="so"><span></span></span></div>
+  <div class="btnrow">
+    <button onclick="log('save:' + toggles('#layer2 input')); setTimeout(closeAll, 300)">Auswahl speichern</button>
+    <button class="primary" onclick="closeAll('accept')">Alle akzeptieren</button>
+  </div>
+</div>
+<script>
+  function openSettings() {
+    log('settings');
+    document.getElementById('layer1').remove();
+    setTimeout(() => (document.getElementById('layer2').hidden = false), 500);
+  }
+  showLater(['shade', 'layer1']);
+</script>
+</body></html>
